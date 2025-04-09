@@ -1,0 +1,95 @@
+/* Paleta de colores */
+:root {
+    --azul-oscuro: #00171F;
+    --azul-principal: #003459;
+    --celeste: #ADEBFF;
+    --blanco: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--blanco);
+    color: var(--azul-oscuro);
+}
+
+/* Header */
+header {
+    background-color: var(--blanco);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--azul-principal);
+}
+
+nav a {
+    margin-left: 2rem;
+    text-decoration: none;
+    color: var(--azul-principal);
+    font-weight: 500;
+}
+
+/* Main upload box */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+}
+
+.upload-box {
+    border: 2px dashed var(--azul-principal);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    max-width: 400px;
+}
+
+.upload-label {
+    cursor: pointer;
+    display: block;
+    padding: 1rem;
+}
+
+.upload-icon {
+    font-size: 2.5rem;
+    color: var(--azul-principal);
+}
+
+.upload-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.description {
+    font-size: 0.95rem;
+    color: #444;
+    margin-top: 1rem;
+}
+
+.submit-btn {
+    margin-top: 1rem;
+    background-color: var(--azul-principal);
+    color: var(--blanco);
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    background-color: var(--azul-principal);
+    color: var(--blanco);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+}

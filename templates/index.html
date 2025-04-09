@@ -1,14 +1,36 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>DetectEmotion</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h2>Sube una imagen para detectar la emoción</h2>
-    <form action="/predecir" method="POST" enctype="multipart/form-data">
-        <input type="file" name="imagen" accept="image/*" required>
-        <button type="submit">Detectar Emoción</button>
-    </form>
+    <header>
+        <div class="logo">🧠 DetectEmotion</div>
+        <nav>
+            <a href="#">Upload</a>
+            <a href="#">Upload</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="upload-box">
+            <form action="/predecir" method="POST" enctype="multipart/form-data">
+                <label for="imagen" class="upload-label">
+                    <input type="file" name="imagen" id="imagen" accept="image/*" required hidden>
+                    <div class="upload-icon">⬆️</div>
+                    <p class="upload-text">Upload Image</p>
+                </label>
+                <p class="description">Upload an image to detect the emotion of a person</p>
+                <button type="submit" class="submit-btn">Detect</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <span>© 2025 DetectEmotion</span>
+        <span>another text</span>
+    </footer>
 </body>
 </html>
