@@ -4,15 +4,13 @@ import tensorflow as tf
 from PIL import Image
 import cv2
 import mediapipe as mp
+from tensorflow.keras.applications.mobilenet import preprocess_input
 
 
 app = Flask(__name__)
 
-modelo = tf.keras.models.load_model("modelo_landmarks_only.h5")
-emociones = ['Natural', 'anger', 'fear', 'joy']
-
-mp_face_mesh = mp.solutions.face_mesh
-face_mesh = mp_face_mesh.FaceMesh(static_image_mode=True)
+modelo = tf.keras.models.load_model("emotion_face_mobilNet.h5")
+emociones = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
 
 @app.route('/')
 def index():
@@ -22,29 +20,21 @@ def index():
 def predecir():
     imagen = request.files['imagen']
     if not imagen:
-        return "❌ No se envió ninguna imagen."
+        return render_template('index.html', error="❌ No se envió ninguna imagen.")
 
-    img = Image.open(imagen).convert('RGB')
-    img_np = np.array(img)
+    # Preprocesamiento de imagen
+    img = Image.open(imagen).convert('RGB').resize((224, 224))
+    img_array = np.array(img) / 255.0
+    img_array = img_array.reshape(1, 224, 224, 3)
 
-    resultados = face_mesh.process(img_np)
+    # Predicción
+    pred = modelo.predict(img_array)
+    emocion_idx = np.argmax(pred)
+    emocion = emociones[emocion_idx]
+    confianza = float(pred[0][emocion_idx]) * 100
 
-    if resultados.multi_face_landmarks:
-        rostro = resultados.multi_face_landmarks[0]
-        puntos = []
-        for lm in rostro.landmark:
-            puntos.extend([lm.x, lm.y])
-
-        entrada = np.array(puntos).reshape(1, -1)  # (1, 936)
-
-        pred = modelo.predict(entrada)
-        emocion_idx = np.argmax(pred)
-        emocion = emociones[emocion_idx]
-        confianza = float(pred[0][emocion_idx]) * 100
-
-        return f"✅ Emoción detectada: {emocion.upper()} ({confianza:.2f}%)"
-    else:
-        return "❌ No se detectó rostro en la imagen."
+    #return render_template('index.html', emocion=emocion.upper(), confianza=f"{confianza:.2f}%")
+    return f"Emoción detectada: {emocion}, Confianza: {confianza:.2f}%"
 
 if __name__ == '__main__':
     app.run(debug=True)
