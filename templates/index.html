@@ -24,18 +24,18 @@
         </div>
 
         <div class="upload-box">
-            <form action="/predecir" method="POST" enctype="multipart/form-data">
+            <form action="/predecir_video" method="POST" enctype="multipart/form-data">
 
                 <input type="text" name="nombre" placeholder="Ingresar nombre" required class="input-nombre">
-                <input type="number" name="edad" placeholder="Edad" required min="1" max="18" class="input-nombre">
+                <input type="number" name="edad" placeholder="Edad" required min="1" max="30" class="input-nombre">
 
-                <label for="imagen" class="upload-label">
-                    <input type="file" name="imagen" id="imagen" accept="image/*" required hidden>
-                    <div class="upload-icon">⬆️</div>
-                    <p class="upload-text">Upload Image</p>
+                <label for="video" class="upload-label">
+                    <input type="file" name="video" id="video" accept="video/*" required hidden>
+                    <div class="upload-icon">🎥</div>
+                    <p class="upload-text">Subir Video</p>
                 </label>
-                <p class="description">Upload an image to detect the emotion of a person</p>
-                <button type="submit" class="submit-btn">Detect</button>
+                <p class="description">Sube un vídeo para detectar emociones a lo largo del tiempo en una persona con autismo</p>
+                <button type="submit" class="submit-btn">Detectar</button>
             </form>
         </div>
     </main>

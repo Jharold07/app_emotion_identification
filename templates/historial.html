@@ -52,8 +52,9 @@
                         <th>Nombre</th>
                         <th>Edad A.</th>
                         <th>Fecha y Hora</th>
-                        <th>Foto</th>
-                        <th>Emoción detectada</th>
+                        <th>video</th>
+                        <th>Emoción dominante</th>
+                        <th>Detalles</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,6 +66,8 @@
                         <td>{{ item.fecha }}</td>
                         <td><a href="{{ url_for('static', filename=item.foto.replace('static/', '')) }}" target="_blank">ver</a></td>
                         <td>{{ item.emocion }}</td>
+                        <!-- <td><a href="/analisis/{{ item.id }}" class="btn-analisis">Ver análisis</a></td> -->
+                        <td><button onclick="abrirAnalisis()" class="btn-ver">Ver análisis</button></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -77,6 +80,31 @@
         <span>DetectEmotion</span>
         <span></span>
     </footer>
+
+    <div id="modalAnalisis" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="cerrarAnalisis()">&times;</span>
+            <h2>Análisis emocional del video</h2>
+    
+            <div class="timeline">
+                <div class="timeline-bar">
+                    <div class="emotion-block" style="width: 30%; background-color: #38bdf8;">triste (0s - 6s)</div>
+                    <div class="emotion-block" style="width: 40%; background-color: #facc15;">Sorpresa (6s - 14s)</div>
+                    <div class="emotion-block destacada" style="width: 30%; background-color: #f87171;">Feliz (14s - 20s)</div>
+                </div>
+                <p class="leyenda">* Emoción destacada: <strong>Feliz</strong> (duró más)</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function abrirAnalisis() {
+            document.getElementById("modalAnalisis").style.display = "flex";
+        }
+        function cerrarAnalisis() {
+            document.getElementById("modalAnalisis").style.display = "none";
+        }
+        </script>
 </body>
 
 </html>

@@ -122,24 +122,25 @@ footer {
 
 .modal {
     position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
     background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-content {
     background-color: white;
-    margin: 10% auto;
-    padding: 20px;
+    padding: 1.5rem 2rem;
     border-radius: 12px;
     width: 90%;
-    max-width: 400px;
+    max-width: 600px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-height: 90vh;        /* Limita la altura máxima */
+    overflow-y: auto;        /* Activa scroll si es necesario */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 .close-btn {
@@ -168,7 +169,44 @@ footer {
     background-color: #1e3a8a;
 }
 
+/* Línea de tiempo */
+.timeline-bar {
+    display: flex;
+    height: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
 
+.emotion-block {
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    font-weight: bold;
+}
+
+.destacada {
+    border: 3px solid #1e40af;
+}
+
+.leyenda {
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.btn-ver {
+    padding: 6px 12px;
+    background-color: #1e40af;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
 
 
