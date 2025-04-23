@@ -61,15 +61,34 @@ def predecir():
 
 
 @app.route("/historial")
+@app.route("/historial")
 def historial():
-    # Aquí deberías reemplazar por datos reales desde una BD o archivo JSON
-    historial_data = [
-        {"nombre": "Luis Angel", "fecha": "Apr 04,2025 10:10 AM", "tiempo": "1.03", "foto": "luis.jpg", "emocion": "Feliz"},
-        {"nombre": "David Enrique", "fecha": "Apr 04,2025 10:09 AM", "tiempo": "1.43", "foto": "david.jpg", "emocion": "Molesto"},
-        {"nombre": "Milagros Rocio", "fecha": "Apr 04,2025 10:06 AM", "tiempo": "1.63", "foto": "milagros.jpg", "emocion": "Molesto"},
-        {"nombre": "Jharold Byram", "fecha": "Apr 04,2025 10:03 AM", "tiempo": "2.01", "foto": "jharold.jpg", "emocion": "Triste"},
-        {"nombre": "Anderson", "fecha": "Apr 04,2025 10:00 AM", "tiempo": "1.52", "foto": "anderson.jpg", "emocion": "Normal"},
-    ]
+    if 'usuario_id' not in session:
+        return redirect('/login')
+
+    conn = sqlite3.connect('data/emociones.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT nombre, edad, fecha, hora, emocion, imagen_path
+        FROM registros
+        WHERE usuario_id = ?
+        ORDER BY fecha DESC, hora DESC
+    ''', (session['usuario_id'],))
+    
+    datos = cursor.fetchall()
+    conn.close()
+
+    historial_data = []
+    for idx, fila in enumerate(datos, 1):
+        historial_data.append({
+            "no": idx,
+            "nombre": fila[0],
+            "edad": fila[1],
+            "fecha": f"{fila[2]} {fila[3]}",
+            "emocion": fila[4].capitalize(),
+            "foto": fila[5]
+        })
+
     return render_template("historial.html", historial=historial_data)
 
 # INICIAR SESION
@@ -140,7 +159,6 @@ def logout():
     return redirect('/login')
 
 #guardar datos en la BD (emociones)
-
 @app.route('/guardar', methods=['POST'])
 def guardar():
     nombre = request.form.get('nombre')
@@ -168,29 +186,3 @@ def guardar():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-# app = Flask(__name__)
-# modelo = tf.keras.models.load_model("modelo_ferac_cnn_50 epocas.h5")
-# emociones = ['Natural', 'anger', 'fear', 'joy']
-
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
-
-# @app.route('/predecir', methods=['POST'])
-# def predecir():
-#     imagen = request.files['imagen']
-#     img = Image.open(imagen).convert('RGB').resize((96, 96))  # Convertir a RGB y redimensionar
-#     img_array = np.array(img) / 255.0
-#     img_array = img_array.reshape(1, 96, 96, 3)  # Asegurar formato correcto para modelo RGB
-
-#     prediccion = modelo.predict(img_array)
-#     emocion = emociones[np.argmax(prediccion)]
-
-#     return f"Emoción detectada: {emocion}"
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
-

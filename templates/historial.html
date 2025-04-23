@@ -26,13 +26,32 @@
         </div>
 
         <div class="container">
+            <!-- <form method="GET" action="/historial" class="filtro-form">
+                <input type="text" name="nombre" placeholder="Buscar por nombre" value="{{ request.args.get('nombre', '') }}">
+                
+                <select name="emocion">
+                    <option value="">Todas las emociones</option>
+                    <option value="feliz">Feliz</option>
+                    <option value="molesto">Molesto</option>
+                    <option value="triste">Triste</option>
+                    <option value="neutral">Neutral</option>
+                    <option value="miedo">Miedo</option>
+                    <option value="asco">Asco</option>
+                    <option value="sorpresa">Sorpresa</option>
+                </select>
+                
+                <input type="date" name="fecha" value="{{ request.args.get('fecha', '') }}">
+                
+                <button type="submit">Filtrar</button>
+            </form> -->
+            
             <table>
                 <thead>
                     <tr>
                         <th>NO.</th>
                         <th>Nombre</th>
-                        <th>Edad</th>
-                        <th>Fecha</th>
+                        <th>Edad A.</th>
+                        <th>Fecha y Hora</th>
                         <th>Foto</th>
                         <th>Emoción detectada</th>
                     </tr>
